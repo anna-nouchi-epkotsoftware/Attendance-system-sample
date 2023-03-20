@@ -13,67 +13,46 @@
 </head>
 
 <body>
-    <div class="container-fluid m-0">
-        <!-- ヘッダー -->
-        <div class="row">
-            <header class="d-flex text-light header">
-                <p class="me-auto">Web日報登録</p>
-                <p class="me-5">勤怠花子</p>
-                <a class="text-light">logout</a>
-            </header>
-        </div>
-        <!-- ヘッダー終わり-->
 
+    <!-- ヘッダー -->
+    <nav class="navbar navbar-expand-sm text-light header sticky-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav4" aria-controls="navbarNav4" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand text-light header-title" href="#">Web日報</a>
+        <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+                <li class="nav-item header-item">
+                    勤怠花子
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light header-item pt-0" href="#">logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- ヘッダー終わり-->
+    <div class="container-fluid m-0">
         <!-- サイドバー -->
         <div class="row">
             <nav class="col-2 box1">
-                <ul class="nav flex-column">
-                    <li class="nav-item"><a href="#" class="p-2">トップページ</a></li>
-                    <li class="nav-item"><a href="#" class="p-2">申請管理</a></li>
-                    <li class="nav-item"><a href="#" class="p-2">社員管理</a></li>
-                    <li class="nav-item"><a href="#" class="p-2">休日設定</a></li>
-                    <li class="nav-item"><a href="#" class="p-2">勤怠管理</a></li>
-                    <li class="nav-item"><a href="#" class="p-2">交通費管理</a></li>
-                    <li class="nav-item"><a href="#" class="p-2">備品管理</a></li>
-                </ul>
+                <div class="">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a href="{{ url('/') }}" class="p-2 nav-link">トップページ</a></li>
+                        <li class="nav-item"><a href="#" class="p-2 nav-link">申請管理</a></li>
+                        <li class="nav-item"><a href="{{ route('users') }}" class="p-2 nav-link">社員管理</a></li>
+                        <li class="nav-item"><a href="#" class="p-2 nav-link">休日設定</a></li>
+                        <li class="nav-item"><a href="#" class="p-2 nav-link">勤怠管理</a></li>
+                        <li class="nav-item"><a href="#" class="p-2 nav-link">交通費管理</a></li>
+                        <li class="nav-item"><a href="#" class="p-2 nav-link">備品管理</a></li>
+                    </ul>
+                </div>
             </nav>
             <!-- サイドバー終わり -->
 
             <!-- コンテンツ部分 -->
-            <main class="col-10 box2">
-
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">社員名</th>
-                            <th scope="col">入社日</th>
-                            <th scope="col">詳細</th>
-                            <th scope="col">編集</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
-                    </tbody>
-                </table>
-
+            <main class="col-10 box2" role="main">
+                @yield('content')
             </main>
             <!-- コンテンツ部分終わり -->
 
