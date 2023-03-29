@@ -87,4 +87,8 @@
             @enderror
         </td>
     </tr>
+    <tr>
+        <th class="table-secondary create-table-item">パスワード</th>
+        <td class="table-light"><input type="password" name="password" value="{{ old('password',$user->password ?? '') }}" {{ $readOnly ? ' disabled ' : '' }}></td>
+    </tr>
 </table>

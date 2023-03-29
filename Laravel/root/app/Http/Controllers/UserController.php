@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -58,6 +60,7 @@ class UserController extends Controller
             'address2' => $request->address2,
             'email' => $request->email,
             'join_date' => $request->join_date,
+            'password' => Hash::make($request->password),
 
 
         ]);
@@ -143,6 +146,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect(view('admin.index'));
+        return redirect(route('users'));
     }
 }

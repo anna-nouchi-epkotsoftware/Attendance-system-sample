@@ -2,6 +2,6 @@
 
 @section('content')
 
-<h1>トップページ</h1>
+<h1>管理側トップページ</h1>
 
 @endsection

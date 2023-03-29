@@ -22,7 +22,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
         'last_name',
         'last_name_kana',
         'first_name',
@@ -32,6 +31,7 @@ class User extends Authenticatable
         'address2',
         'email',
         'join_date',
+        'password',
     ];
 
     /**
@@ -52,4 +52,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function works()
+    {
+        return $this->hasMany('App\Models\Models\Work');
+    }
 }
