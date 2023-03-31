@@ -17,13 +17,14 @@ class ReportController extends Controller
      */
     public function store(User $user)
     {
+        //出勤新規登録
         $day = Carbon::now()->format('Y-m-d');
         $time = Carbon::now()->format('G:i:s');
-        //出勤新規登録
         Work::create([
             'user_id' => $user->id,
             'date' => $day,
             'work_start_time' => $time,
+            'status_id' =>1,
         ]);
         return redirect(
             route('work', ['user' => $user])
@@ -39,9 +40,9 @@ class ReportController extends Controller
      */
     public function update(User $user)
     {
+        //退勤更新
         $day = Carbon::now()->format('Y-m-d');
         $time = Carbon::now()->format('G:i:s');
-        //退勤更新
         Work::where('user_id', '=', $user->id)
             ->where('date', '=', $day)
             ->update(['work_end_time' => $time]);
