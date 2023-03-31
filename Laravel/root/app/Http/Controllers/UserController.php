@@ -44,12 +44,6 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-
-        // $validated = $request->validate([
-        //     'last_name' => 'required|max:255',
-        //     'last_name_kana' => 'required',
-        // ]);
-
         $user = User::create([
             'last_name' => $request->last_name,
             'last_name_kana' => $request->last_name_kana,
@@ -61,8 +55,6 @@ class UserController extends Controller
             'email' => $request->email,
             'join_date' => $request->join_date,
             'password' => Hash::make($request->password),
-
-
         ]);
         return redirect(
             route('user.show', ['user' => $user])

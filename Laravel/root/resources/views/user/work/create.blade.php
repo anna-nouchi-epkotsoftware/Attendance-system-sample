@@ -34,7 +34,7 @@ $readOnly= false;
                 <label for="date">日付</label>
             </th>
             <td class="table-light">
-                <input type="date" name="date" id="date" value="{{ $work->date }}">
+                <input type="date" name="date" id="date" value="{{ $work->date }}" disabled>
             </td>
         </tr>
         <tr>
@@ -42,7 +42,7 @@ $readOnly= false;
                 <label for="work_start_time">出社時間</label>
             </th>
             <td class="table-light">
-                <input type="time" name="work_start_time" id="work_start_time" value="{{ $work->work_start_time }}">
+                <input type="time" name="work_start_time" id="work_start_time" value="{{ $work->work_start_time }}" disabled>
             </td>
         </tr>
         <tr>
@@ -50,7 +50,7 @@ $readOnly= false;
                 <label for="work_end_time">退社時間</label>
             </th>
             <td class="table-light">
-                <input type="time" name="work_end_time" class="@error('work_end_time') is-invalid @enderror" value="{{ $work->work_end_time }}" id="work_end_time">
+                <input type="time" name="work_end_time" class="@error('work_end_time') is-invalid @enderror" value="{{ $work->work_end_time }}" id="work_end_time" disabled>
                 @error('last_name')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -62,7 +62,7 @@ $readOnly= false;
             </th>
             <td class="table-light">
                 <input type="time" name="break_time" class="@error('break_time') is-invalid @enderror" value="{{ $work->break_time }}" max="01:00" step="900" id="break_time" {{ $readOnly ? ' disabled ' : '' }}>
-                @error('last_name_kana')
+                @error('break_time')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </td>
@@ -72,10 +72,7 @@ $readOnly= false;
                 <label for="work_content">備考</label>
             </th>
             <td class="table-light">
-                <input type="text" name="work_content" id="work_content" class="@error('first_name') is-invalid @enderror" value="{{ $work->work_content }}" {{ $readOnly ? ' disabled ' : '' }} placeholder="早退・遅刻など">
-                @error('first_name')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                <input type="text" name="work_content" id="work_content" value="{{ old('work_content',$work->work_content) }}" {{ $readOnly ? ' disabled ' : '' }} placeholder="早退・遅刻など">
             </td>
         </tr>
         <tr>
@@ -83,10 +80,7 @@ $readOnly= false;
                 <label for="comment">総務コメント</label>
             </th>
             <td class="table-light create-table-item-last">
-                <textarea name="comment" id="comment" placeholder="早退・遅刻などの理由を記載してください。" class="w-75" {{ $readOnly ? ' disabled ' : '' }} value="{{ $work->comment }}"></textarea>
-                @error('join_date')
-                <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                <textarea name="comment" id="comment" placeholder="早退・遅刻などの理由を記載してください。" class="w-75" {{ $readOnly ? ' disabled ' : '' }}>{{ old('comment',$work->comment) }}</textarea>
             </td>
         </tr>
     </table>

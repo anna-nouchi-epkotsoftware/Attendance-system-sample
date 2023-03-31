@@ -68,19 +68,7 @@ class WorkController extends Controller
      */
     public function store(User $user,Request $request)
     {
-        $date=Carbon::now()->format('Y-m-d');
-        Work::create([
-            'user_id' => $user->id,
-            'work_content' =>$request->work_content,
-            'comment' =>$request->comment,
-            'date' =>$date,
-            'work_start_time' =>$request->work_start_time,
-            'work_end_time' =>$request->work_end_time,
-            'break_time' =>$request->break_time,
-        ]);
-        return redirect(
-            route('work', ['user' => $user])
-        );
+        //
     }
 
     /**
@@ -119,12 +107,13 @@ class WorkController extends Controller
     public function update(Request $request,User $user, Work $work)
     {
         //申請登録
+        $validated = $request->validate([
+            'break_time' => 'required',
+        ]);
+
         $work->update([
             'work_content' =>$request->work_content,
             'comment' =>$request->comment,
-            'date' =>$request->date,
-            'work_start_time' =>$request->work_start_time,
-            'work_end_time' =>$request->work_end_time,
             'break_time' =>$request->break_time,
             'status_id'  =>2,
         ]);

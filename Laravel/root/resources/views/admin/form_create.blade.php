@@ -79,8 +79,8 @@
         </td>
     </tr>
     <tr>
-        <th class="table-secondary create-table-item-last create-table-item">入社日</th>
-        <td class="table-light create-table-item-last">
+        <th class="table-secondary create-table-item">入社日</th>
+        <td class="table-light">
             <input type="date" name="join_date" class="@error('join_date') is-invalid @enderror" value="{{ old('join_date' ,$user->join_date ?? '') }}" {{ $readOnly ? ' disabled ' : '' }}>
             @error('join_date')
             <div class="invalid-feedback">{{ $message }}</div>
@@ -88,7 +88,7 @@
         </td>
     </tr>
     <tr>
-        <th class="table-secondary create-table-item">パスワード</th>
-        <td class="table-light"><input type="password" name="password" value="{{ old('password',$user->password ?? '') }}" {{ $readOnly ? ' disabled ' : '' }}></td>
+        <th class="table-secondary create-table-item create-table-item-last">パスワード</th>
+        <td class="table-light create-table-item-last"><input type="password" name="password" value="{{ old('password',$user->password ?? '') }}" {{ $readOnly ? ' disabled ' : '' }}></td>
     </tr>
 </table>
