@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use  App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Models\Models\Work;
 
 class WorkController extends Controller
 {
@@ -40,7 +41,7 @@ class WorkController extends Controller
             $dateList[$date->format('Y-m-d')]=$date->format('d日');
         }
 
-        return view('work.index', [
+        return view('user.work.index', [
             'works' => $works,
             'thisYear'   => $thisYear,
             'thisMonth'   => $thisMonth,
@@ -56,7 +57,7 @@ class WorkController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -67,7 +68,19 @@ class WorkController extends Controller
      */
     public function store(User $user,Request $request)
     {
-        
+        $date=Carbon::now()->format('Y-m-d');
+        Work::create([
+            'user_id' => $user->id,
+            'work_content' =>$request->work_content,
+            'comment' =>$request->comment,
+            'date' =>$date,
+            'work_start_time' =>$request->work_start_time,
+            'work_end_time' =>$request->work_end_time,
+            'break_time' =>$request->break_time,
+        ]);
+        return redirect(
+            route('work', ['user' => $user])
+        );
     }
 
     /**
@@ -76,9 +89,13 @@ class WorkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user, Work $work)
     {
-        //
+        //詳細画面表示
+        return view('user.work.create',[
+            'user' => $user,
+            'work' => $work,
+        ]);
     }
 
     /**
@@ -99,9 +116,24 @@ class WorkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,User $user, Work $work)
     {
-        //
+        //申請登録
+        $work->update([
+            'work_content' =>$request->work_content,
+            'comment' =>$request->comment,
+            'date' =>$request->date,
+            'work_start_time' =>$request->work_start_time,
+            'work_end_time' =>$request->work_end_time,
+            'break_time' =>$request->break_time,
+            'status_id'  =>2,
+        ]);
+        return redirect(
+            route('work', [
+                'user' => $user,
+                'work' => $work,
+                ])
+        );
     }
 
     /**
@@ -145,7 +177,7 @@ class WorkController extends Controller
 
 
 
-        return view('work.index', [
+        return view('user.work.index', [
             'works' => $works,
             'thisYear'    =>$year,
             'thisMonth'   => $month,

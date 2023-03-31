@@ -42,8 +42,8 @@
             <nav class="col-2 box1">
                 <div class="">
                     <ul class="nav flex-column">
-                        <li class="nav-item"><a href="{{ url('/') }}" class="p-2 nav-link">トップページ</a></li>
-                        <li class="nav-item"><a href="{{ route('works',Auth::user()) }}" class="p-2 nav-link">勤怠一覧</a></li>
+                        <li class="nav-item"><a href="{{ url('/home') }}" class="p-2 nav-link">トップページ</a></li>
+                        <li class="nav-item"><a href="{{ route('work',Auth::user()) }}" class="p-2 nav-link">勤怠一覧</a></li>
                         <li class="nav-item"><a href="#" class="p-2 nav-link">休日申請</a></li>
                         <li class="nav-item"><a href="#" class="p-2 nav-link">交通費申請</a></li>
                         <li class="nav-item"><a href="#" class="p-2 nav-link">備品申請</a></li>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\WorkController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,16 +37,27 @@ Route::middleware(['guest'])->group(function () {
 
     Route::get('/login', [AuthController::class, 'showLogin'])->name('showLogin');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
-
 });
+
 //ログイン後画面（社員）
 Route::middleware(['auth'])->group(function () {
-    //勤怠管理
+    //勤怠管理トップページ
     Route::get('/home', function () {
         return view('/user/top');
     })->name('home');
-    Route::get('/works/{user}',[WorkController::class, 'index'])->name('works'); //一覧表示
-    Route::post('/works/{user}',[WorkController::class, 'index2'])->name('works.store'); //月変更
+    //勤怠管理
+    Route::prefix('work')->group(function () {
+        Route::get('/{user}', [WorkController::class, 'index'])->name('work'); //一覧表示
+        Route::post('/{user}', [WorkController::class, 'index2'])->name('work.index2'); //月変更
+        Route::get('{user}/register/{work}', [WorkController::class, 'show'])->name('work.register.show'); //新規登録表示
+        Route::post('/{user}/register/{work}', [WorkController::class, 'update'])->name('work.register.update'); //勤怠更新
+    });
+    //出退勤送信
+    Route::prefix('report')->group(function () {
+        Route::get('/{user}/store', [ReportController::class, 'store'])->name('report.store'); //出勤登録
+        Route::get('/{user}/update', [ReportController::class, 'update'])->name('report.update'); //退勤登録
+    });
+
     // ログアウト
-    Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
