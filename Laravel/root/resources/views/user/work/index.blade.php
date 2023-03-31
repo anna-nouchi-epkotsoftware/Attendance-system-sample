@@ -78,7 +78,7 @@ $now =$now->format('Y年m月d日');
             <td>{{ $work->work_end_time }}</td>
             <td>{{ $work->break_time }}</td>
             <td>{{ $work->work_content }}</td>
-            <td><a href="{{ route('work.register.show',['user' => Auth::user()->id,'work' => $work->id]) }}" class="btn btn-outline-success">登録</a></td>
+            <td><a href="{{ route('work.register.show',['user' => Auth::user()->id,'work' => $work->id]) }}" class="btn btn-outline-success">申請</a></td>
                 @php
                 if($work->status_id === 1){
                     echo '<td><p class="text-danger">申請してください</p></td>';
