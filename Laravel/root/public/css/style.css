@@ -15,6 +15,7 @@
     height: 100%;
     margin-left: 18%;
     width: 82%;
+    min-height: 80vh;
 }
 .box1 {
     border: 1px solid;
@@ -52,4 +53,15 @@
 }
 .create-button {
     text-align: center;
+}
+/* user-base */
+.logout-button{
+    background-color: #808080;
+    border-color: white;
+    color: white;
+    padding: 0 21px;
+    margin-left: 39px;
+    border: none;
+    border-radius: 21px;
+    font-size: 26px;
 }

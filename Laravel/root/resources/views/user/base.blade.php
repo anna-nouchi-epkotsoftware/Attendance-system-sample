@@ -23,15 +23,15 @@
         <a class="navbar-brand text-light header-title" href="#">Web日報</a>
         <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav">
-                <li class="nav-item header-item">
+                <li class="nav-item header-item header-item">
                     {{ Auth::user()->last_name }}{{ Auth::user()->first_name }}
                 </li>
-                <li class="nav-item">
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button class="nav-link text-light header-item pt-0 btn btn-danger">ログアウト</button>
-                    </form>
-                </li>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <li class="nav-item header-item">
+                        <input type="submit" value="logout" class="logout-button">
+                    </li>
+                </form>
             </ul>
         </div>
     </nav>
@@ -44,9 +44,6 @@
                     <ul class="nav flex-column">
                         <li class="nav-item"><a href="{{ url('/home') }}" class="p-2 nav-link">トップページ</a></li>
                         <li class="nav-item"><a href="{{ route('work',Auth::user()) }}" class="p-2 nav-link">勤怠一覧</a></li>
-                        <li class="nav-item"><a href="#" class="p-2 nav-link">休日申請</a></li>
-                        <li class="nav-item"><a href="#" class="p-2 nav-link">交通費申請</a></li>
-                        <li class="nav-item"><a href="#" class="p-2 nav-link">備品申請</a></li>
                     </ul>
                 </div>
             </nav>
