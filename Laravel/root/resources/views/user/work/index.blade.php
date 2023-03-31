@@ -67,7 +67,7 @@ $now =$now->format('Y年m月d日');
             <th scope="col">休憩時間</th>
             <th scope="col">備考</th>
             <th scope="col">申請</th>
-            <th scope="col">承認</th>
+            <th scope="col">承認ステータス</th>
         </tr>
     </thead>
     <tbody>
@@ -79,7 +79,15 @@ $now =$now->format('Y年m月d日');
             <td>{{ $work->break_time }}</td>
             <td>{{ $work->work_content }}</td>
             <td><a href="{{ route('work.register.show',['user' => Auth::user()->id,'work' => $work->id]) }}" class="btn btn-outline-success">登録</a></td>
-            <td>承認の可否表示</td>
+                @php
+                if($work->status_id === 1){
+                    echo '<td><p class="text-danger">申請してください</p></td>';
+                }elseif($work->status_id === 2){
+                    echo '<td><p class="text-secondary">申請中</p></td>';
+                }else{
+                    echo '<td><p class="text-primary">承認済み</p></td>';
+                }
+                @endphp
         </tr>
         @endforeach
     </tbody>
