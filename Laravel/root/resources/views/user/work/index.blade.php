@@ -24,6 +24,8 @@ $now =$now->format('Y年m月d日');
 <div>{{ $now }}{{ $dayOfWeek }}</div>
 <p id="RealtimeClockArea">※ここに時計が表示されます。</p>
 
+<!-- 出退勤アラート表示 -->
+<x-alert type="danger" :message="session('danger')"/>
 <!-- 出勤ボタン -->
 <p><a href="{{ route('report.store',Auth::user()) }}" class="btn btn-primary">出勤</a></p>
 <!-- 退勤ボタン -->
