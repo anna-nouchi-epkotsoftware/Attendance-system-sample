@@ -1,18 +1,16 @@
 @extends('user.base')
 
 @section('content')
-
-<h1>社員側トップページ</h1>
-
-@if (session('login_success'))
-<div class="alert alert-success">{{session('login_success')}}</div>
-@endif
-
-<div>ID:{{ Auth::user()->id }}</div>
-<div>名前:{{ Auth::user()->last_name }}</div>
-<div>メールアドレス:{{ Auth::user()->email }}</div>
-<form action="{{ route('logout') }}" method="POST">
-    @csrf
-    <button class="btn btn-danger">ログアウト</button>
-</form>
+<div class="container w-75">
+    <div class="row">
+        <div class="col mt-4 my-5">
+            <h1 class="user-top-title fs-2">勤怠管理</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col ms-5">
+            <a href="{{ route('work',Auth::user()) }}" class="user-top-a">勤怠一覧</a>
+        </div>
+    </div>
+</div>
 @endsection

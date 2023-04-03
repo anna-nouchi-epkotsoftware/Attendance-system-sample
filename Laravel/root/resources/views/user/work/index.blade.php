@@ -19,22 +19,42 @@ $now =$now->format('Y年m月d日');
 @extends('user.base')
 
 @section('content')
-
-<h1>勤怠一覧</h1>
-<div>{{ $now }}{{ $dayOfWeek }}</div>
-<p id="RealtimeClockArea">※ここに時計が表示されます。</p>
+<h1>{{ $now }}{{ $dayOfWeek }}</h1>
 
 <!-- 出退勤アラート表示 -->
-<x-alert type="danger" :message="session('danger')"/>
-<!-- 出勤ボタン -->
-<p><a href="{{ route('report.store',Auth::user()) }}" class="btn btn-primary">出勤</a></p>
-<!-- 退勤ボタン -->
-<p><a href="{{ route('report.update', Auth::user() ) }}" class="btn btn-danger">退勤</a></p>
+<x-alert type="danger" :message="session('danger')" />
+<!-- 出退勤サクセス表示 -->
+<x-alert type="success" :message="session('success')" />
+
+<!-- タイムカード -->
+<div class="container border border-2 rounded w-75 text-center mt-4 my-5 p-0">
+    <div class="row">
+        <div class="col fs-3 fw-bold p-2">
+            タイムカード
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <p id="RealtimeClockArea2" class="fs-1 fw-bold text-light bg-secondary"></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <!-- 出勤ボタン -->
+            <p><a href="{{ route('report.store',Auth::user()) }}" class="btn btn-primary fw-bold w-50 h-100 fs-2 mt-4 my-4">出勤</a></p>
+        </div>
+        <div class="col">
+            <!-- 退勤ボタン -->
+            <p><a href="{{ route('report.update', Auth::user() ) }}" class="btn btn-danger fw-bold w-50 h-100 fs-2 mt-4 my-4">退勤</a></p>
+        </div>
+    </div>
+</div>
 
 <!-- 月変更ボタン -->
-<form action="{{ route('work.index2',Auth::user() ) }}" method="POST">
+<form action="{{ route('work.show',Auth::user() ) }}" method="POST" class="my-3">
     @csrf
-    <select name="year">
+    <select name="year" class="fs-5">
         @php
         $year = '';
         for ($i=2022; $i <= $thisYear; $i++) { if($i==$thisYear){ $year .='<option value="' .$i.'" selected>'.$i.'年</option>';
@@ -45,7 +65,7 @@ $now =$now->format('Y年m月d日');
             echo $year;
             @endphp
     </select>
-    <select name="month">
+    <select name="month" class="fs-5 me-2">
         @php
         $month ='';
         for ($i=1; $i <= 12; $i++) { if($i==$thisMonth){ $month .='<option value="' .$i.'" selected>'.$i.'月</option>';
@@ -56,18 +76,21 @@ $now =$now->format('Y年m月d日');
             echo $month;
             @endphp
     </select>
-    <button type="submit">違う月へ</button>
+    <button type="submit" class="btn btn-outline-dark btn-sm work-index-btn me-2">検索</button>
+    <span><a href="{{ route('work',Auth::user()) }}" class="btn btn-outline-dark btn-sm work-index-btn">今月</a></span>
 </form>
 
 <!-- 勤怠データ一覧表示 -->
-<table class="table">
-    <thead>
+<table class="table table-bordered border-dark">
+    <thead class="table-secondary">
         <tr>
             <th scope="col">日付</th>
+            <th scope="col">曜日</th>
             <th scope="col">始業時間</th>
             <th scope="col">退勤時間</th>
             <th scope="col">休憩時間</th>
             <th scope="col">備考</th>
+            <th scope="col">総務コメント</th>
             <th scope="col">申請</th>
             <th scope="col">承認ステータス</th>
         </tr>
@@ -76,69 +99,69 @@ $now =$now->format('Y年m月d日');
         @foreach($works as $work)
         <tr>
             <th>{{ $work->date }}</th>
+            <th>
+                @php
+                $date =date('w',strtotime($work->date));
+                $week = [
+                '日', //0
+                '月', //1
+                '火', //2
+                '水', //3
+                '木', //4
+                '金', //5
+                '土', //6
+                ];
+                echo $week[$date];
+                @endphp
+            </th>
             <td>{{ $work->work_start_time }}</td>
             <td>{{ $work->work_end_time }}</td>
             <td>{{ $work->break_time }}</td>
             <td>{{ $work->work_content }}</td>
-            <td><a href="{{ route('work.register.show',['user' => Auth::user()->id,'work' => $work->id]) }}" class="btn btn-outline-success">申請</a></td>
-                @php
-                if($work->status_id === 1){
-                    echo '<td><p class="text-danger">申請してください</p></td>';
-                }elseif($work->status_id === 2){
-                    echo '<td><p class="text-secondary">申請中</p></td>';
-                }else{
-                    echo '<td><p class="text-primary">承認済み</p></td>';
-                }
-                @endphp
+            <td>{{ $work->comment }}</td>
+            <td><a href="{{ route('work.register.edit',['user' => Auth::user()->id,'work' => $work->id]) }}" class="btn btn-outline-success">申請</a></td>
+            @php
+            if($work->status_id === 1){
+            echo '<td>
+                <p class="text-danger">申請してください</p>
+            </td>';
+            }elseif($work->status_id === 2){
+            echo '<td>
+                <p class="text-secondary">申請中</p>
+            </td>';
+            }else{
+            echo '<td>
+                <p class="text-primary">承認済み</p>
+            </td>';
+            }
+            @endphp
         </tr>
         @endforeach
     </tbody>
 </table>
 
-<!-- 勤怠データ一覧表示（提案２） -->
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">日付</th>
-            <th scope="col">始業時間</th>
-            <th scope="col">退勤時間</th>
-            <th scope="col">休憩時間</th>
-            <th scope="col">備考</th>
-            <th scope="col">変更</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($dateList as $key => $date)
-        <tr>
-            <th>{{ $date }}</th>
-            @foreach($works as $work)
-            @if($key === $work->date)
-            <td>{{ $work->work_start_time}}</td>
-            <td>{{ $work->work_end_time}}</td>
-            <td>{{ $work->break_time}}</td>
-            <td>{{ $work->work_content}}</td>
-            <td><a href="" class="btn btn-outline-success">変更</a></td>
-            @endif
-            @endforeach
-        </tr>
-        @endforeach
-    </tbody>
-</table>
-<tr></tr>
-<th></th>
-<td></td>
-
-<!-- リアルタイム時計 -->
+<!-- JSリアルタイム時計 -->
 <script>
-    function showClock1() {
-        var nowTime = new Date();
-        var nowHour = nowTime.getHours();
-        var nowMin = nowTime.getMinutes();
-        var nowSec = nowTime.getSeconds();
-        var msg = nowHour + ":" + nowMin + ":" + nowSec;
-        document.getElementById("RealtimeClockArea").innerHTML = msg;
+    function set2fig(num) {
+        // 桁数が1桁だったら先頭に0を加えて2桁に調整する
+        var ret;
+        if (num < 10) {
+            ret = "0" + num;
+        } else {
+            ret = num;
+        }
+        return ret;
     }
-    setInterval('showClock1()', 1000);
+
+    function showClock2() {
+        var nowTime = new Date();
+        var nowHour = set2fig(nowTime.getHours());
+        var nowMin = set2fig(nowTime.getMinutes());
+        var nowSec = set2fig(nowTime.getSeconds());
+        var msg = nowHour + ":" + nowMin + ":" + nowSec;
+        document.getElementById("RealtimeClockArea2").innerHTML = msg;
+    }
+    setInterval('showClock2()', 1000);
 </script>
 
 @endsection

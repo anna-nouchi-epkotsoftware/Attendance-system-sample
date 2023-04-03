@@ -17,10 +17,11 @@ class WorkController extends Controller
      */
     public function index(User $user)
     {
-        //勤怠データ一覧表示
+        //今月の勤怠データ一覧表示
         $thisYear = Carbon::now()->year;
         $thisMonth = Carbon::now()->month;
         $id=$user->id;
+
         $works = DB::table('users')
         ->join('works', 'users.id', '=', 'works.user_id')
         ->whereYear('works.date',$thisYear)
@@ -28,56 +29,22 @@ class WorkController extends Controller
         ->where('users.id', '=', $id)
         ->orderBy('works.date', 'asc')
         ->get();
-        $firstOfMonth = Carbon::now()->firstOfMonth();
-        $endOfMonth = Carbon::now()->endOfMonth();
-        $dateList = [];
-        $dateList[$firstOfMonth->format('Y-m-d')] =$firstOfMonth->format('d日');
-
-        for ($i = 0; true; $i++) {
-            $date = $firstOfMonth->addDays(1);
-            if ($date > $endOfMonth) {
-                break;
-            }
-            $dateList[$date->format('Y-m-d')]=$date->format('d日');
-        }
 
         return view('user.work.index', [
             'works' => $works,
-            'thisYear'   => $thisYear,
-            'thisMonth'   => $thisMonth,
-            'dateList'   => $dateList,
-
+            'thisYear' => $thisYear,
+            'thisMonth' => $thisMonth,
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(User $user,Request $request)
-    {
-        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param　App\Models\User $user
+     * @param　App\Models\Work $work
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user, Work $work)
+    public function edit(User $user, Work $work)
     {
         //詳細画面表示
         return view('user.work.create',[
@@ -89,19 +56,38 @@ class WorkController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param　App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function show(User $user,Request $request)
     {
-        //
+        //月変更処理
+        $year = $request->year;
+        $month = $request->month;
+        $id=$user->id;
+
+        $works = DB::table('users')
+        ->join('works', 'users.id', '=', 'works.user_id')
+        ->whereYear('works.date',$year)
+        ->whereMonth('works.date',$month)
+        ->where('users.id', '=', $id)
+        ->orderBy('works.date', 'asc')
+        ->get();
+
+        return view('user.work.index', [
+            'works' => $works,
+            'thisYear'    =>$year,
+            'thisMonth'   => $month,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param　App\Models\User $user
+     * @param　App\Models\Work $work
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request,User $user, Work $work)
@@ -117,60 +103,11 @@ class WorkController extends Controller
             'break_time' =>$request->break_time,
             'status_id'  =>2,
         ]);
-        return redirect(
+        return redirect()->
             route('work', [
                 'user' => $user,
                 'work' => $work,
-                ])
-        );
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    public function index2(User $user,Request $request)
-    {
-        //月変更処理
-        $year = $request->year;
-        $month = $request->month;
-        $id=$user->id;
-        $works = DB::table('users')
-        ->join('works', 'users.id', '=', 'works.user_id')
-        ->whereYear('works.date',$year)
-        ->whereMonth('works.date',$month)
-        ->where('users.id', '=', $id)
-        ->orderBy('works.date', 'asc')
-        ->get();
-
-        $firstOfMonth = Carbon::now()->firstOfMonth();
-        $endOfMonth = Carbon::now()->endOfMonth();
-        $dateList = [];
-        $dateList[$firstOfMonth->format('Y-m-d')] =$firstOfMonth->format('d日');
-
-        for ($i = 0; true; $i++) {
-            $date = $firstOfMonth->addDays(1);
-            if ($date > $endOfMonth) {
-                break;
-            }
-            $dateList[$date->format('Y-m-d')]=$date->format('d日');
-        }
-
-
-
-
-        return view('user.work.index', [
-            'works' => $works,
-            'thisYear'    =>$year,
-            'thisMonth'   => $month,
-            'dateList'   => $dateList,
-        ]);
+                ])->
+            with('success', '申請完了しました。');
     }
 }

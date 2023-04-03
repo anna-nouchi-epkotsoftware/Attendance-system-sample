@@ -36,9 +36,7 @@ class ReportController extends Controller
                 'work_start_time' => $time,
                 'status_id' => 1,
             ]);
-            return redirect(
-                route('work', ['user' => $user])
-            );
+            return redirect()->route('work', ['user' => $user])->with('success', 'おはようございます！今日も1日頑張りましょう！');
         } else {
             return redirect()->route('work', ['user' => $user])->with('danger', '出勤ボタンはすでに押されています。');
         }
@@ -69,9 +67,7 @@ class ReportController extends Controller
             Work::where('user_id', '=', $user->id)
                 ->where('date', '=', $day)
                 ->update(['work_end_time' => $time]);
-            return redirect(
-                route('work', ['user' => $user])
-            );
+            return redirect()->route('work', ['user' => $user])->with('success', '今日も1日お疲れ様でした！');
         } else {
             return redirect()->route('work', ['user' => $user])->with('danger', '退勤ボタンはすでに押されています。');
         }

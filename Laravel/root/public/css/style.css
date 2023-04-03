@@ -15,7 +15,7 @@
     height: 100%;
     margin-left: 18%;
     width: 82%;
-    min-height: 80vh;
+    min-height: 90vh;
 }
 .box1 {
     border: 1px solid;
@@ -64,4 +64,20 @@
     border: none;
     border-radius: 21px;
     font-size: 26px;
+}
+/* user-top */
+.user-top-title {
+    text-shadow: 1px 2px 3px #808080;
+}
+.user-top-a {
+    background-color: #6699CC;
+    text-decoration: none;
+    color: white;
+    width: 20%;
+    padding: 10px 45px;
+    box-shadow: 10px 10px 15px -10px gray;
+}
+/* user-work-index */
+.work-index-btn {
+    margin-top: -6px;
 }

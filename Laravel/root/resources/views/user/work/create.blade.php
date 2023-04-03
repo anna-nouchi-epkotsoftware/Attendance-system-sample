@@ -13,7 +13,7 @@ $readOnly= true;
 <h1>出退勤登録</h1>
 <form action="{{ route('work.register.update',['user' => Auth::user()->id,'work' => $work->id]) }}" method="POST">
     @csrf
-    <table class="table create-table">
+    <table class="table create-table my-5">
         <tr>
             <th class="table-secondary create-table-item">
                 <label for="date">日付</label>
@@ -74,6 +74,7 @@ $readOnly= true;
     echo '<div class="create-button"><button type="submit" class="btn btn-outline-primary w-25">申請</button></div>';
     }
     @endphp
+    <div><a href="{{ route('work',Auth::user()) }}" class="btn btn-secondary">戻る</a></div>
 </form>
 
 @endsection

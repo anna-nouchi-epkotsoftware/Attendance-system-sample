@@ -48,8 +48,8 @@ Route::middleware(['auth'])->group(function () {
     //勤怠管理
     Route::prefix('work')->group(function () {
         Route::get('/{user}', [WorkController::class, 'index'])->name('work'); //一覧表示
-        Route::post('/{user}', [WorkController::class, 'index2'])->name('work.index2'); //月変更
-        Route::get('{user}/register/{work}', [WorkController::class, 'show'])->name('work.register.show'); //新規登録表示
+        Route::post('/{user}', [WorkController::class, 'show'])->name('work.show'); //月変更
+        Route::get('{user}/register/{work}', [WorkController::class, 'edit'])->name('work.register.edit'); //新規登録表示
         Route::post('/{user}/register/{work}', [WorkController::class, 'update'])->name('work.register.update'); //勤怠更新
     });
     //出退勤送信
