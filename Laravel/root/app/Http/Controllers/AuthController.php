@@ -24,7 +24,7 @@ class AuthController extends Controller
 
             $request->session()->regenerate();
 
-            return redirect()->route('home')->with('login_success', 'ログインに成功しました。');
+            return redirect()->route('home')->with('success', 'ログインに成功しました。');
         }
         return back()->with([
             'login_error' => 'メールアドレスかパスワードが間違っています',
