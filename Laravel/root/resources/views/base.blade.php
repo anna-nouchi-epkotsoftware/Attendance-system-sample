@@ -19,14 +19,14 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav4" aria-controls="navbarNav4" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand text-light header-title" href="#">Web日報</a>
+        <a class="navbar-brand text-light header-title" href="{{ url('/admin') }}">Web日報</a>
         <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav">
                 <li class="nav-item header-item">
                     勤怠花子
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light header-item pt-0" href="#">logout</a>
+                    <a class="nav-link text-light header-item pt-0" href="#">logout(未実装)</a>
                 </li>
             </ul>
         </div>
@@ -39,12 +39,8 @@
                 <div class="">
                     <ul class="nav flex-column">
                         <li class="nav-item"><a href="{{ url('/admin') }}" class="p-2 nav-link">トップページ</a></li>
-                        <li class="nav-item"><a href="#" class="p-2 nav-link">申請管理</a></li>
                         <li class="nav-item"><a href="{{ route('users') }}" class="p-2 nav-link">社員管理</a></li>
-                        <li class="nav-item"><a href="#" class="p-2 nav-link">休日設定</a></li>
                         <li class="nav-item"><a href="#" class="p-2 nav-link">勤怠管理</a></li>
-                        <li class="nav-item"><a href="#" class="p-2 nav-link">交通費管理</a></li>
-                        <li class="nav-item"><a href="#" class="p-2 nav-link">備品管理</a></li>
                     </ul>
                 </div>
             </nav>
