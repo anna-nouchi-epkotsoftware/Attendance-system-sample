@@ -23,7 +23,7 @@
     </div>
     <div class="row">
         <div class="col ms-5">
-            <a href="" class="user-top-a">勤怠一覧</a>
+            <a href="{{ route('admin.works') }}" class="user-top-a">勤怠一覧</a>
         </div>
     </div>
 </div>

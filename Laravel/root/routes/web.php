@@ -29,6 +29,9 @@ Route::get('user/{user}/edit', [UserController::class, 'edit'])->name('user.edit
 Route::patch('user/{user}', [UserController::class, 'update'])->name('user.update');
 Route::post('user/{user}/confirm', [UserController::class, 'confirm'])->name('user.confirm');
 Route::delete('user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+Route::get('admin/works', function () {
+    return view('/admin/work/index');
+})->name('admin.works');
 
 
 
