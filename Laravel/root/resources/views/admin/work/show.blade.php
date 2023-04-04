@@ -43,7 +43,13 @@
             <td>{{ $work->break_time }}</td>
             <td>{{ $work->work_content }}</td>
             <td>{{ $work->comment }}</td>
-            <td><a href="" class="btn btn-outline-success">承認</a></td>
+            <td><a href="{{ route('admin.works.approval',[
+                'work' => $work->id,
+                'user' => $work->user_id,
+                'searchYear' => $searchYear,
+                'searchMonth' => $searchMonth,
+                'name' => $name,
+                ]) }}" class="btn btn-outline-success">承認</a></td>
             @php
             if($work->status_id === 1){
             echo '<td>

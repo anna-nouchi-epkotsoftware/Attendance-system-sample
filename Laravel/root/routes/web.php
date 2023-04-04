@@ -36,6 +36,7 @@ Route::prefix('admin/works')->group(function () {
     Route::get('/',[AdminWorkController::class,'index'])->name('admin.works');
     Route::post('/',[AdminWorkController::class,'search'])->name('admin.works.search');
     Route::get('/show/{user}/{searchYear}/{searchMonth}/{name}',[AdminWorkController::class,'show'])->name('admin.works.show');
+    Route::get('/show/{work}/{user}/{searchYear}/{searchMonth}/{name}',[AdminWorkController::class,'approval'])->name('admin.works.approval');
 });
 
 //ログイン画面(社員)

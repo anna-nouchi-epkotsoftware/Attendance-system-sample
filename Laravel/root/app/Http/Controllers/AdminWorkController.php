@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Models\Models\Work;
 
 class AdminWorkController extends Controller
 {
@@ -42,7 +42,7 @@ class AdminWorkController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  $user,$searchYear,$searchMonth,$name
      * @return \Illuminate\Http\Response
      */
     public function show($user,$searchYear,$searchMonth,$name)
@@ -54,17 +54,13 @@ class AdminWorkController extends Controller
         ->where('users.id', '=', $user)
         ->orderBy('works.date', 'asc')
         ->get();
-
         return view('admin.work.show', [
             'works' => $works,
             'searchYear'    =>$searchYear,
             'searchMonth'   => $searchMonth,
             'name'   => $name,
+            'user'   => $user,
         ]);
-
-
-
-        return view('admin.work.show');
     }
 
     /**
@@ -140,5 +136,14 @@ class AdminWorkController extends Controller
             'searchYear'  => $request->year,
             'searchMonth' => $request->month,
         ]);
+    }
+
+    public function approval(Work $work,$user,$searchYear,$searchMonth,$name)
+    {
+        //承認処理
+        $work->status_id = 3;
+        $work->save();
+        return redirect()->route('admin.works.show',['user' => $user,'searchYear' => $searchYear,'searchMonth' => $searchMonth,'name' => $name]);
+
     }
 }
