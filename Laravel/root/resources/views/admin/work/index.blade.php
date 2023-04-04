@@ -16,6 +16,7 @@ $nowDay =$now->format('Y年m月d日');
 $thisYear =$now->format('Y');
 $thisMonth =$now->format('m');
 
+$number = 0;
 @endphp
 
 @extends('base')
@@ -33,13 +34,15 @@ $thisMonth =$now->format('m');
 
     <div class="row">
         <div class="col">
-            <form action="" method="POST" class="my-3">
+            <form action="{{ route('admin.works.search') }}" method="POST" class="my-3">
                 @csrf
                 <table class="table create-table mx-auto w-50">
                     <tr>
-                        <th>年</th>
+                        <th>
+                            <label for="year">年</label>
+                        </th>
                         <td>
-                            <select name="year" class="fs-5">
+                            <select name="year" id="year" class="fs-5">
                                 @php
                                 $year = '';
                                 for ($i=2022; $i <= $thisYear; $i++) { if($i==$thisYear){ $year .='<option value="' .$i.'" selected>'.$i.'年</option>';
@@ -53,9 +56,11 @@ $thisMonth =$now->format('m');
                         </td>
                     </tr>
                     <tr>
-                        <th>月</th>
+                        <th>
+                            <label for="month">月</label>
+                        </th>
                         <td>
-                            <select name="month" class="fs-5 me-2">
+                            <select name="month" id="month" class="fs-5 me-2">
                                 @php
                                 $month ='';
                                 for ($i=1; $i <= 12; $i++) { if($i==$thisMonth){ $month .='<option value="' .$i.'" selected>'.$i.'月</option>';
@@ -69,16 +74,28 @@ $thisMonth =$now->format('m');
                         </td>
                     </tr>
                     <tr>
-                        <th>ID</th>
-                        <td><input type="number"></td>
+                        <th>
+                            <label for="id">ID</label>
+                        </th>
+                        <td>
+                            <input type="number" name="id" id="id">
+                        </td>
                     </tr>
                     <tr>
-                        <th>名字</th>
-                        <td><input type="text"></td>
+                        <th>
+                            <label for="last_name">名字</label>
+                        </th>
+                        <td>
+                            <input type="text" name="last_name" id="last_name">
+                        </td>
                     </tr>
                     <tr>
-                        <th>名前</th>
-                        <td><input type="text"></td>
+                        <th>
+                            <label for="first_name">名前</label>
+                        </th>
+                        <td>
+                            <input type="text" name="first_name" id="first_name">
+                        </td>
                     </tr>
                 </table>
                 <div class="text-center"><button type="submit" class="btn btn-outline-dark btn-sm work-index-btn me-2">検索</button></div>
@@ -88,28 +105,26 @@ $thisMonth =$now->format('m');
 </div>
 
 <!-- 勤怠データ一覧表示 -->
-<table class="table table-bordered border-dark">
+<div>{{ $searchYear }}年{{ $searchMonth }}月&nbsp;&nbsp;{{ $users->count() }}件</div>
+<table class="table table-bordered border-dark w-75">
     <thead class="table-secondary">
         <tr>
             <th scope="col">NO.</th>
             <th scope="col">ID</th>
-            <th scope="col">名字</th>
             <th scope="col">氏名</th>
         </tr>
     </thead>
     <tbody>
-        @foreach([] as $work)
+        @foreach($users ?? [] as $user)
         <tr>
             <td>
                 @php
-                $number = 0;
                 $number = $number + 1;
+                echo $number;
                 @endphp
-                {{ $number }}
             </td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{ $user->id }}</td>
+            <td>{{ $user->last_name }}&nbsp;{{ $user->first_name }}</td>
         </tr>
         @endforeach
     </tbody>

@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\WorkController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\AdminWorkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +18,11 @@ use App\Http\Controllers\ReportController;
 |
 */
 
-//管理画面
+//管理画面トップページ
 Route::get('/admin', function () {
     return view('/admin/top');
 });
+//admin側社員管理
 Route::get('/users', [UserController::class, 'index'])->name('users');
 Route::get('user/register', [UserController::class, 'create'])->name('user.register.create');
 Route::post('user/register', [UserController::class, 'store'])->name('user.register.store');
@@ -29,13 +31,13 @@ Route::get('user/{user}/edit', [UserController::class, 'edit'])->name('user.edit
 Route::patch('user/{user}', [UserController::class, 'update'])->name('user.update');
 Route::post('user/{user}/confirm', [UserController::class, 'confirm'])->name('user.confirm');
 Route::delete('user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
-Route::get('admin/works', function () {
-    return view('/admin/work/index');
-})->name('admin.works');
+//admin側勤怠管理
+Route::prefix('admin/works')->group(function () {
+    Route::get('/',[AdminWorkController::class,'index'])->name('admin.works');
+    Route::post('/',[AdminWorkController::class,'search'])->name('admin.works.search');
+});
 
-
-
-//ログイン画面
+//ログイン画面(社員)
 Route::middleware(['guest'])->group(function () {
 
     Route::get('/login', [AuthController::class, 'showLogin'])->name('showLogin');
