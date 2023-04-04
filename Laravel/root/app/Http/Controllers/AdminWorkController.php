@@ -45,9 +45,26 @@ class AdminWorkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($user,$searchYear,$searchMonth,$name)
     {
-        //
+        $works = DB::table('users')
+        ->join('works', 'users.id', '=', 'works.user_id')
+        ->whereYear('works.date',$searchYear)
+        ->whereMonth('works.date',$searchMonth)
+        ->where('users.id', '=', $user)
+        ->orderBy('works.date', 'asc')
+        ->get();
+
+        return view('admin.work.show', [
+            'works' => $works,
+            'searchYear'    =>$searchYear,
+            'searchMonth'   => $searchMonth,
+            'name'   => $name,
+        ]);
+
+
+
+        return view('admin.work.show');
     }
 
     /**

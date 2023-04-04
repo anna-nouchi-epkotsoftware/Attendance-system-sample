@@ -105,7 +105,9 @@ $number = 0;
 </div>
 
 <!-- 勤怠データ一覧表示 -->
-<div>{{ $searchYear }}年{{ $searchMonth }}月&nbsp;&nbsp;{{ $users->count() }}件</div>
+@if(isset($searchYear))
+<div>{{ $searchYear}}年{{ $searchMonth}}月&nbsp;&nbsp;{{ $users->count() }}件</div>
+@endif
 <table class="table table-bordered border-dark w-75">
     <thead class="table-secondary">
         <tr>
@@ -121,10 +123,13 @@ $number = 0;
                 @php
                 $number = $number + 1;
                 echo $number;
+                $name =$user->last_name.$user->first_name;
                 @endphp
             </td>
             <td>{{ $user->id }}</td>
-            <td>{{ $user->last_name }}&nbsp;{{ $user->first_name }}</td>
+            <td>
+                <a href="{{ route('admin.works.show',['user' => $user->id,'searchYear' => $searchYear,'searchMonth' => $searchMonth,'name' => $name]) }}">{{ $user->last_name }}&nbsp;{{ $user->first_name }}</a>
+            </td>
         </tr>
         @endforeach
     </tbody>
