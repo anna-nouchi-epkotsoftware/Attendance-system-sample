@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav">
                 <li class="nav-item header-item">
-                    勤怠花子
+                    管理者画面
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-light header-item pt-0" href="#">logout(未実装)</a>
