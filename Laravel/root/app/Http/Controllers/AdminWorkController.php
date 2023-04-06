@@ -45,8 +45,7 @@ class AdminWorkController extends Controller
 
     public function search(Request $request)
     {
-        $last_name = "%$request->last_name%";
-        $first_name = "%$request->first_name%";
+        $name ="%$request->name%";
         $id = $request->id;
 
         if ($id !== null) {
@@ -70,10 +69,7 @@ class AdminWorkController extends Controller
             ->join('works', 'users.id', '=', 'works.user_id')
             ->whereYear('works.date', $request->year)
             ->whereMonth('works.date', $request->month)
-            ->where(function ($query) use ($last_name, $first_name) {
-                $query->where('last_name', 'like', $last_name)
-                    ->orWhere('first_name', 'like', $first_name);
-            })
+            ->where(DB::raw('CONCAT(last_name, first_name)'), 'like',$name )
             ->groupBy('users.id')
             ->get();
 

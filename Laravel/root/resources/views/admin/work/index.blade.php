@@ -83,21 +83,16 @@ $number = 0;
                     </tr>
                     <tr>
                         <th>
-                            <label for="last_name">名字</label>
+                            <label for="name">名前</label>
                         </th>
                         <td>
-                            <input type="text" name="last_name" id="last_name">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            <label for="first_name">名前</label>
-                        </th>
-                        <td>
-                            <input type="text" name="first_name" id="first_name">
+                            <input type="text" name="name" id="name">
                         </td>
                     </tr>
                 </table>
+                <p class="mx-auto w-50">※IDまたは名前で検索してください。<br/>
+                   ※IDと名前を当時に入力した場合はIDが優先されます。
+                </p>
                 <div class="text-center"><button type="submit" class="btn btn-outline-dark btn-sm work-index-btn me-2">検索</button></div>
             </form>
         </div>
