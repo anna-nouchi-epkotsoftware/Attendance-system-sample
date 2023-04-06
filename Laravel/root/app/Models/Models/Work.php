@@ -10,7 +10,7 @@ class Work extends Model
 {
     use HasFactory;
     use SoftDeletes;
-   /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -25,7 +25,7 @@ class Work extends Model
         'break_time',
         'status_id',
     ];
-    
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');

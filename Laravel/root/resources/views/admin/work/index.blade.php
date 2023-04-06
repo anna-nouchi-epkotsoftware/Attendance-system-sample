@@ -15,8 +15,6 @@ $dayOfWeek=$week[$date] . '曜日';
 $nowDay =$now->format('Y年m月d日');
 $thisYear =$now->format('Y');
 $thisMonth =$now->format('m');
-
-$number = 0;
 @endphp
 
 @extends('base')
