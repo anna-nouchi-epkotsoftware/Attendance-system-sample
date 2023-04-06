@@ -4,6 +4,7 @@
 <h1>{{ $searchYear }}年{{ $searchMonth }}月の勤怠データ</h1>
 <p>氏名：{{ $name }}</p>
 
+<div class="text-end my-3 me-3"><a class="btn btn-success" href="{{ route('admin.works.csv',['id'=>$user,'searchYear' => $searchYear,'searchMonth' => $searchMonth,'name' => $name]) }}">CSVダウンロード</a></div>
 <!-- 勤怠データ一覧表示 -->
 <table class="table table-bordered border-dark">
     <thead class="table-secondary">

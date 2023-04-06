@@ -19,83 +19,29 @@ class AdminWorkController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  $user,$searchYear,$searchMonth,$name
      * @return \Illuminate\Http\Response
      */
-    public function show($user,$searchYear,$searchMonth,$name)
+    public function show($user, $searchYear, $searchMonth, $name)
     {
         $works = DB::table('users')
-        ->join('works', 'users.id', '=', 'works.user_id')
-        ->whereYear('works.date',$searchYear)
-        ->whereMonth('works.date',$searchMonth)
-        ->where('users.id', '=', $user)
-        ->orderBy('works.date', 'asc')
-        ->get();
+            ->join('works', 'users.id', '=', 'works.user_id')
+            ->whereYear('works.date', $searchYear)
+            ->whereMonth('works.date', $searchMonth)
+            ->where('users.id', '=', $user)
+            ->orderBy('works.date', 'asc')
+            ->get();
         return view('admin.work.show', [
             'works' => $works,
-            'searchYear'    =>$searchYear,
+            'searchYear'    => $searchYear,
             'searchMonth'   => $searchMonth,
             'name'   => $name,
             'user'   => $user,
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 
     public function search(Request $request)
     {
@@ -138,12 +84,78 @@ class AdminWorkController extends Controller
         ]);
     }
 
-    public function approval(Work $work,$user,$searchYear,$searchMonth,$name)
+    public function approval(Work $work, $user, $searchYear, $searchMonth, $name)
     {
         //承認処理
         $work->status_id = 3;
         $work->save();
-        return redirect()->route('admin.works.show',['user' => $user,'searchYear' => $searchYear,'searchMonth' => $searchMonth,'name' => $name]);
+        return redirect()->route('admin.works.show', ['user' => $user, 'searchYear' => $searchYear, 'searchMonth' => $searchMonth, 'name' => $name]);
+    }
 
+    //CSV出力機能
+    public function csv($id, $searchYear, $searchMonth, $name)
+    {
+        $csvName = "{$id}_{$searchYear}年{$searchMonth}月{$name}.csv";
+
+        //   CSVレコード配列取得
+        $csvRecords = self::getJobCsvRecords($id, $searchYear, $searchMonth);
+
+        //   CSVストリームダウンロード
+        return self::streamDownloadCsv($csvName, $csvRecords);
+    }
+
+    //データベースから配列出力
+    private static function getJobCsvRecords($id, $searchYear, $searchMonth): array
+    {
+        //条件に合うデータ取得
+        $works = Work::where('user_id', '=', $id)
+            ->whereYear('date', $searchYear)
+            ->whereMonth('date', $searchMonth)
+            ->orderBy('date', 'asc')
+            ->get();
+
+        $csvRecords = [
+            ['日付', '始業時間', '退勤時間', '休憩時間', '備考', '総務コメント'], // ヘッダー
+        ];
+        foreach ($works as $work) {
+            $csvRecords[] = [$work->date, $work->work_start_time, $work->work_end_time, $work->break_time, $work->work_content, $work->comment]; // レコード
+        }
+        return $csvRecords;
+    }
+
+    //CSV出力
+    private static function streamDownloadCsv(
+        string $name,
+        iterable $fieldsList,
+        string $separator = ',',
+        string $enclosure = '"',
+        string $escape = "\\",
+        string $eol = "\r\n"
+    ) {
+        // Content-Type
+        $contentType = 'text/plain'; // テキストファイル
+
+        //csvとtsvに分けている
+        if ($separator === ',') {
+            $contentType = 'text/csv'; // CSVファイル
+        } elseif ($separator === "\t") {
+            $contentType = 'text/tab-separated-values'; // TSVファイル
+        }
+
+        //レスポンスヘッダ用情報を変数に入れてる
+        $headers = ['Content-Type' => $contentType];
+
+        return response()->streamDownload(
+                function () use ($fieldsList, $separator, $enclosure, $escape, $eol) {
+                    $stream = fopen('php://output', 'w');
+
+                    foreach ($fieldsList as $fields) {
+                        fputcsv($stream, $fields, $separator, $enclosure, $escape, $eol);
+                    }
+                    fclose($stream);
+                },
+                $name,
+                $headers
+            ); //(出力するtextファイル作ってる,csvファイル名,ヘッダ情報)
     }
 }

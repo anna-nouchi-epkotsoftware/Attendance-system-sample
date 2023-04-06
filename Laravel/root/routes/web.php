@@ -37,6 +37,7 @@ Route::prefix('admin/works')->group(function () {
     Route::post('/',[AdminWorkController::class,'search'])->name('admin.works.search');
     Route::get('/show/{user}/{searchYear}/{searchMonth}/{name}',[AdminWorkController::class,'show'])->name('admin.works.show');
     Route::get('/show/{work}/{user}/{searchYear}/{searchMonth}/{name}',[AdminWorkController::class,'approval'])->name('admin.works.approval');
+    Route::get('/csv/{id}/{searchYear}/{searchMonth}/{name}',[AdminWorkController::class,'csv'])->name('admin.works.csv');
 });
 
 //ログイン画面(社員)
