@@ -52,8 +52,8 @@
 
                 foreach ($list as $key => $ken){
                     if(($user->prefecture) == $key){
-                        $data_f .= "<option value='". $key;
-                        $data_f .= "'>". $ken. "</option>";
+                        $data .= "<option value='". $key;
+                        $data .= "'selected>". $ken. "</option>";
                     }
                     $data .= "<option value='". $key;
                     $data .= "'>". $ken. "</option>";

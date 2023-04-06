@@ -29,8 +29,9 @@ class StoreUserRequest extends FormRequest
             'last_name_kana' => 'required|max:100',
             'first_name' => 'required|max:100',
             'first_name_kana' => 'required|max:100',
-            // 'email' => 'required|max:100|email:rfc,dns|unique:user,email',
+            'email' => 'required|max:100|unique:users,email',
             'join_date' => 'required',
+            'password' => 'required',
         ];
     }
 
@@ -43,6 +44,7 @@ class StoreUserRequest extends FormRequest
             'first_name_kana' => '名前(ふりがな)',
             'email' => 'メールアドレス',
             'join_date' => '入社日',
+            'password' => 'パスワード',
         ];
     }
 }

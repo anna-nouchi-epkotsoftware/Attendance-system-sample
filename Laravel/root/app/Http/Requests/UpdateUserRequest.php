@@ -28,7 +28,7 @@ class UpdateUserRequest extends FormRequest
             'last_name_kana' => 'required|max:100',
             'first_name' => 'required|max:100',
             'first_name_kana' => 'required|max:100',
-            // 'email' => 'required|max:100|email:rfc,dns|unique:user,email',
+            'email' => 'required|max:100',
             'join_date' => 'required',
         ];
     }
