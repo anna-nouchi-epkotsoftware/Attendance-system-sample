@@ -26,6 +26,17 @@ class Work extends Model
         'status_id',
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'date' => 'date',
+        'work_start_time' => 'datetime',
+        'work_end_time' => 'datetime',
+    ];
+
     public function user()
     {
         return $this->belongsTo('App\Models\User');

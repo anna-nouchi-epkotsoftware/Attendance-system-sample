@@ -22,8 +22,7 @@ class ReportController extends Controller
         $day = Carbon::now()->format('Y-m-d');
         $time = Carbon::now()->format('G:i:s');
 
-        $works = DB::table('works')
-            ->where('user_id', '=', $user->id)
+        $works = Work::where('user_id', '=', $user->id)
             ->where('date', '=', $day)
             ->get();
         $res = $works->isEmpty();
@@ -55,8 +54,7 @@ class ReportController extends Controller
         $day = Carbon::now()->format('Y-m-d');
         $time = Carbon::now()->format('G:i:s');
 
-        $works = DB::table('works')
-            ->where('user_id', '=', $user->id)
+        $works =Work::where('user_id', '=', $user->id)
             ->where('date', '=', $day)
             ->get();
         $res = $works->whereNotNull('work_end_time');
