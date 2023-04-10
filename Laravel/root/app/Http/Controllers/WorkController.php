@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use  App\Models\User;
 use Illuminate\Support\Facades\DB;
-use App\Models\Models\Work;
+use App\Models\Work;
 
 class WorkController extends Controller
 {
