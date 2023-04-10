@@ -64,7 +64,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -78,7 +78,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -86,6 +86,11 @@ class UserController extends Controller
         return view('admin.edit', ['user' => $user]);
     }
 
+    /**
+     * @param \App\Http\Requests\UpdateUserRequest $request
+     * @param \App\Models\User $user
+     * @return \Illuminate\Http\Response
+     */
     public function confirm(UpdateUserRequest $request, User $user)
     {
         // 更新確認画面
@@ -100,7 +105,6 @@ class UserController extends Controller
         $user->join_date = $request->join_date;
         return view('admin.confirm', ['user' => $user]);
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -132,7 +136,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)

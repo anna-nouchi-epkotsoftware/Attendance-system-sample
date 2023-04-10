@@ -13,7 +13,7 @@ class ReportController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     *
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function store(User $user)

@@ -12,7 +12,7 @@ class WorkController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function index(User $user)
@@ -56,8 +56,8 @@ class WorkController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param　App\Models\User $user
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function show(User $user,Request $request)
