@@ -1,0 +1,86 @@
+/* admin ヘッダー */
+.header {
+    padding: 13px;
+    background-color: #77c7fc;
+}
+.header-title {
+    font-size: 2rem;
+}
+.header-item {
+    font-size: 2rem;
+}
+/* admin　sidebar */
+.box2 {
+    background-color: #f2f4f5;
+    height: 100%;
+    margin-left: 18%;
+    width: 82%;
+    min-height: 90vh;
+}
+.box1 {
+    border: 1px solid;
+    position: fixed;
+    width: 18%;
+    height: 100%;
+    padding: 0;
+}
+.box1 li a {
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+.box1 li a:hover {
+    background-color: rgba(145, 137, 137,0.5);
+}
+/* admin.index */
+.index-table {
+    width: 133vh;
+    margin-left: 5%;
+}
+.index-table-p {
+    text-align: right;
+    padding: 1%;
+}
+/* admin create */
+.create-table {
+    border: 1px solid;
+}
+.create-table-item {
+    border-right: 1px solid;
+}
+.create-table-item-last {
+    border-bottom: 1px solid;
+}
+.create-button {
+    text-align: center;
+}
+/* user-base */
+.logout-button{
+    background-color: #808080;
+    border-color: white;
+    color: white;
+    padding: 0 21px;
+    margin-left: 39px;
+    border: none;
+    border-radius: 21px;
+    font-size: 26px;
+}
+/* admin.user-top */
+.user-top-title {
+    text-shadow: 1px 2px 3px #808080;
+}
+.user-top-a {
+    background-color: #6699CC;
+    text-decoration: none;
+    color: white;
+    width: 20%;
+    padding: 10px 45px;
+    box-shadow: 10px 10px 15px -10px gray;
+}
+/* user-work-index */
+.work-index-btn {
+    margin-top: -6px;
+}
+.admin-work-index-search-title {
+    background-color: #6699CC;
+}
