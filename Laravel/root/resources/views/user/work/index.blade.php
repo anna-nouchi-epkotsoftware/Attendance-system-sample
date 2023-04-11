@@ -12,14 +12,16 @@ $week = [
 $date = $now->format('w');
 //日本語で曜日を出力
 $dayOfWeek=$week[$date] . '曜日';
-$now =$now->format('Y年m月d日');
+$nowDay =$now->format('Y年m月d日');
+$thisYear =$now->format('Y');
+$thisMonth =$now->format('m');
 @endphp
 
 
 @extends('user.base')
 
 @section('content')
-<h1>{{ $now }}{{ $dayOfWeek }}</h1>
+<h1>{{ $nowDay }}{{ $dayOfWeek }}</h1>
 
 <!-- 出退勤アラート表示 -->
 <x-alert type="danger" :message="session('danger')" />
@@ -56,26 +58,47 @@ $now =$now->format('Y年m月d日');
 <form action="{{ route('work.show',Auth::user() ) }}" method="POST" class="my-3">
     @csrf
     <select name="year" class="fs-5">
-        @php
-        $year = '';
-        for ($i=2022; $i <= $thisYear; $i++) { if($i==$thisYear){ $year .='<option value="' .$i.'" selected>'.$i.'年</option>';
-            }else{
-            $year .='<option value="' .$i.'">'.$i.'年</option>';
-            }
-            }
-            echo $year;
-            @endphp
+
+        <!-- 年の<option>タグ作成 -->
+        @if(isset($searchYear))
+            @foreach (range(2018,$thisYear) as $year)
+                @if($year == $searchYear)
+                    <option value="{{ $year }}" selected>{{ $year }}年</option>
+                @else
+                    <option value="{{ $year }}">{{ $year }}年</option>
+                @endif
+            @endforeach
+        @else
+            @foreach (range(2018,$thisYear) as $year)
+                @if($year == $thisYear)
+                    <option value="{{ $year }}" selected>{{ $year }}年</option>
+                @else
+                    <option value="{{ $year }}">{{ $year }}年</option>
+                @endif
+            @endforeach
+        @endif
     </select>
     <select name="month" class="fs-5 me-2">
-        @php
-        $month ='';
-        for ($i=1; $i <= 12; $i++) { if($i==$thisMonth){ $month .='<option value="' .$i.'" selected>'.$i.'月</option>';
-            }else{
-            $month .='<option value="' .$i.'">'.$i.'月</option>';
-            }
-            }
-            echo $month;
-            @endphp
+
+        <!--月の<option>タグ作成 -->
+        @if(isset($searchMonth))
+            @foreach (range(1,12) as $month)
+                @if ($month == $searchMonth)
+                    <option value="{{ $month }}" selected>{{ $month }}月</option>
+                @else
+                    <option value="{{ $month }}">{{ $month }}月</option>
+                @endif
+            @endforeach
+        @else
+            @foreach (range(1,12) as $month)
+                @if ($month == $thisMonth)
+                    <option value="{{ $month }}" selected>{{ $month }}月</option>
+                @else
+                    <option value="{{ $month }}">{{ $month }}月</option>
+                @endif
+            @endforeach
+        @endif
+
     </select>
     <button type="submit" class="btn btn-outline-dark btn-sm work-index-btn me-2">検索</button>
     <span><a href="{{ route('work',Auth::user()) }}" class="btn btn-outline-dark btn-sm work-index-btn">今月</a></span>
@@ -156,7 +179,7 @@ $now =$now->format('Y年m月d日');
             realtimeElement.textContent = msg;
         }
         showClock2(); // 初期表示
-        setInterval(showClock2, 1000);//1秒ごとに処理
+        setInterval(showClock2, 1000); //1秒ごとに処理
     })();
 </script>
 

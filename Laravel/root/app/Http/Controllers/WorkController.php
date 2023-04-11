@@ -32,8 +32,6 @@ class WorkController extends Controller
 
         return view('user.work.index', [
             'works' => $works,
-            'thisYear' => $thisYear,
-            'thisMonth' => $thisMonth,
         ]);
     }
 
@@ -77,8 +75,8 @@ class WorkController extends Controller
 
         return view('user.work.index', [
             'works' => $works,
-            'thisYear'    =>$year,
-            'thisMonth'   => $month,
+            'searchYear'    =>$year,
+            'searchMonth'   => $month,
         ]);
     }
 
