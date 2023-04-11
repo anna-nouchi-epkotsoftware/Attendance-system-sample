@@ -33,7 +33,7 @@ Route::post('user/{user}/confirm', [UserController::class, 'confirm'])->name('us
 Route::delete('user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 //admin側勤怠管理
 Route::prefix('admin/works')->group(function () {
-    Route::get('/',[AdminWorkController::class,'index'])->name('admin.works');
+    Route::get('/',[AdminWorkController::class,'index'])->name('admin.works.index');
     Route::post('/',[AdminWorkController::class,'search'])->name('admin.works.search');
     Route::get('/show/{user}/{searchYear}/{searchMonth}/{name}',[AdminWorkController::class,'show'])->name('admin.works.show');
     Route::get('/show/{work}/{user}/{searchYear}/{searchMonth}/{name}',[AdminWorkController::class,'approval'])->name('admin.works.approval');
