@@ -36,6 +36,7 @@ $now =$now->format('Y年m月d日');
 
     <div class="row">
         <div class="col">
+            <!-- リアルタイム時計表示 -->
             <p id="RealtimeClockArea2" class="fs-1 fw-bold text-light bg-secondary"></p>
         </div>
     </div>
@@ -142,26 +143,21 @@ $now =$now->format('Y年m月d日');
 
 <!-- JSリアルタイム時計 -->
 <script>
-    function set2fig(num) {
-        // 桁数が1桁だったら先頭に0を加えて2桁に調整する
-        var ret;
-        if (num < 10) {
-            ret = "0" + num;
-        } else {
-            ret = num;
-        }
-        return ret;
-    }
+    (() => {
+        const realtimeElement = document.getElementById("RealtimeClockArea2");
 
-    function showClock2() {
-        var nowTime = new Date();
-        var nowHour = set2fig(nowTime.getHours());
-        var nowMin = set2fig(nowTime.getMinutes());
-        var nowSec = set2fig(nowTime.getSeconds());
-        var msg = nowHour + ":" + nowMin + ":" + nowSec;
-        document.getElementById("RealtimeClockArea2").innerHTML = msg;
-    }
-    setInterval('showClock2()', 1000);
+        //時間取得
+        function showClock2() {
+            const nowTime = new Date();
+            const nowHour = String(nowTime.getHours()).padStart(2, '0');
+            const nowMin = String(nowTime.getMinutes()).padStart(2, '0');
+            const nowSec = String(nowTime.getSeconds()).padStart(2, '0');
+            const msg = nowHour + ":" + nowMin + ":" + nowSec;
+            realtimeElement.textContent = msg;
+        }
+        showClock2(); // 初期表示
+        setInterval(showClock2, 1000);//1秒ごとに処理
+    })();
 </script>
 
 @endsection
