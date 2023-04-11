@@ -144,21 +144,19 @@ $thisMonth =$now->format('m');
             <td>{{ $work->work_content }}</td>
             <td>{{ $work->comment }}</td>
             <td><a href="{{ route('work.register.edit',['user' => Auth::user()->id,'work' => $work->id]) }}" class="btn btn-outline-success">申請</a></td>
-            @php
-            if($work->status_id === 1){
-            echo '<td>
+            @if($work->status_id === 1)
+            <td>
                 <p class="text-danger">申請してください</p>
-            </td>';
-            }elseif($work->status_id === 2){
-            echo '<td>
+            </td>
+            @elseif($work->status_id === 2)
+            <td>
                 <p class="text-secondary">申請中</p>
-            </td>';
-            }else{
-            echo '<td>
+            </td>
+            @else
+            <td>
                 <p class="text-primary">承認済み</p>
-            </td>';
-            }
-            @endphp
+            </td>
+            @endif
         </tr>
         @endforeach
     </tbody>
