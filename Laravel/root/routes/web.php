@@ -23,7 +23,7 @@ Route::get('/admin', function () {
     return view('/admin/top');
 });
 //admin側社員管理
-Route::get('/users', [UserController::class, 'index'])->name('users');
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('user/register', [UserController::class, 'create'])->name('user.register.create');
 Route::post('user/register', [UserController::class, 'store'])->name('user.register.store');
 Route::get('user/{user}', [UserController::class, 'show'])->name('user.show');

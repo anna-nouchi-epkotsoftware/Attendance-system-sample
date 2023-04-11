@@ -39,7 +39,7 @@
                 <div class="">
                     <ul class="nav flex-column">
                         <li class="nav-item"><a href="{{ url('/admin') }}" class="p-2 nav-link">トップページ</a></li>
-                        <li class="nav-item"><a href="{{ route('users') }}" class="p-2 nav-link">社員管理</a></li>
+                        <li class="nav-item"><a href="{{ route('users.index') }}" class="p-2 nav-link">社員管理</a></li>
                         <li class="nav-item"><a href="{{ route('admin.works.index') }}" class="p-2 nav-link">勤怠管理</a></li>
                     </ul>
                 </div>

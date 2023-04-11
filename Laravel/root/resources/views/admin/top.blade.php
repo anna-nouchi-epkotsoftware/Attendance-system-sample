@@ -9,7 +9,7 @@
     </div>
     <div class="row">
         <div class="col ms-5">
-            <a href="{{ route('users') }}" class="user-top-a">社員一覧</a>
+            <a href="{{ route('users.index') }}" class="user-top-a">社員一覧</a>
         </div>
         <div class="col">
             <a href="{{ route('user.register.create') }}" class="user-top-a">社員登録</a>
