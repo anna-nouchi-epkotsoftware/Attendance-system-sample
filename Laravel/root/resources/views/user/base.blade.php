@@ -43,7 +43,7 @@
                 <div class="">
                     <ul class="nav flex-column">
                         <li class="nav-item"><a href="{{ url('/home') }}" class="p-2 nav-link">トップページ</a></li>
-                        <li class="nav-item"><a href="{{ route('work',Auth::user()) }}" class="p-2 nav-link">勤怠一覧</a></li>
+                        <li class="nav-item"><a href="{{ route('work.index',Auth::user()) }}" class="p-2 nav-link">勤怠一覧</a></li>
                     </ul>
                 </div>
             </nav>

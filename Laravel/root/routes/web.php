@@ -55,7 +55,7 @@ Route::middleware(['auth'])->group(function () {
     })->name('home');
     //勤怠管理
     Route::prefix('work')->group(function () {
-        Route::get('/{user}', [WorkController::class, 'index'])->name('work'); //一覧表示
+        Route::get('/{user}', [WorkController::class, 'index'])->name('work.index'); //一覧表示
         Route::post('/{user}', [WorkController::class, 'show'])->name('work.show'); //月変更
         Route::get('{user}/register/{work}', [WorkController::class, 'edit'])->name('work.register.edit'); //新規登録表示
         Route::post('/{user}/register/{work}', [WorkController::class, 'update'])->name('work.register.update'); //勤怠更新

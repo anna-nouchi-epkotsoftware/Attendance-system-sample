@@ -101,7 +101,7 @@ $thisMonth =$now->format('m');
 
     </select>
     <button type="submit" class="btn btn-outline-dark btn-sm work-index-btn me-2">検索</button>
-    <span><a href="{{ route('work',Auth::user()) }}" class="btn btn-outline-dark btn-sm work-index-btn">今月</a></span>
+    <span><a href="{{ route('work.index',Auth::user()) }}" class="btn btn-outline-dark btn-sm work-index-btn">今月</a></span>
 </form>
 
 <!-- 勤怠データ一覧表示 -->

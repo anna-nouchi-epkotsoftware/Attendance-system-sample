@@ -102,7 +102,7 @@ class WorkController extends Controller
             'status_id'  =>2,
         ]);
         return redirect()->
-            route('work', [
+            route('work.index', [
                 'user' => $user,
                 'work' => $work,
                 ])->

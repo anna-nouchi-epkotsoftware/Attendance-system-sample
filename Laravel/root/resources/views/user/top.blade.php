@@ -10,7 +10,7 @@
     </div>
     <div class="row">
         <div class="col ms-5">
-            <a href="{{ route('work',Auth::user()) }}" class="user-top-a">勤怠一覧</a>
+            <a href="{{ route('work.index',Auth::user()) }}" class="user-top-a">勤怠一覧</a>
         </div>
     </div>
 </div>

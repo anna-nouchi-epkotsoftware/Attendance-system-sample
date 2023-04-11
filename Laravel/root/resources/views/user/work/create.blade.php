@@ -74,7 +74,7 @@ $readOnly= true;
     echo '<div class="create-button"><button type="submit" class="btn btn-outline-primary w-25">申請</button></div>';
     }
     @endphp
-    <div><a href="{{ route('work',Auth::user()) }}" class="btn btn-secondary">戻る</a></div>
+    <div><a href="{{ route('work.index',Auth::user()) }}" class="btn btn-secondary">戻る</a></div>
 </form>
 
 @endsection
